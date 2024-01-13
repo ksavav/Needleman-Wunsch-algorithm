@@ -11,19 +11,22 @@ export class DataComponent {
 
   constructor(private apiService: ApiService) {}
 
-  sendData(): void {
-    const data = { 
-      mismatch: '-2',
-      match: '2',
-      gap: '-1',
-      seq1: 'AATCG',
-      seq2: 'AACG'
-     };
+  getDataFromForm(values: any): void {
+    var data = { 
+      mismatch: values.mismatch,
+      match: values.match,
+      gap: values.gap,
+      seq1: values.seq1,
+      seq2: values.seq2
+    };
 
+    this.sendData(data)
+  }
+
+  sendData(data: any): void {
     this.apiService.data(data).subscribe(
       response => {
         this.result = response.result
-        console.log(response.matrix)
         console.log(response)
       },
       error => {

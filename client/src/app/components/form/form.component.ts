@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -12,17 +12,19 @@ export class FormComponent {
 
   constructor(private fb: FormBuilder) { }
 
+  @Output() sendDataToDataComponent = new EventEmitter()
+
   ngOnInit(): void {
     this.form = this.fb.group({
-      seq1: ['', Validators.required],
-      seq2: ['', Validators.required],
-      match: [null, Validators.required],
-      mismatch: [null, Validators.required],
-      gap: [null, Validators.required],
+      seq1: ['AATCG', Validators.required],
+      seq2: ['AACG', Validators.required],
+      match: [2, Validators.required],
+      mismatch: [-2, Validators.required],
+      gap: [-1, Validators.required],
     });
   }
 
   onSubmit() {  
-    console.log(this.form?.value);
+    this.sendDataToDataComponent.emit(this.form?.value)
   }
 }
