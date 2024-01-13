@@ -13,6 +13,8 @@ export class DataComponent {
   
   result: string | undefined
   passAllData: object | undefined
+  seq1: object | any
+  seq2: object | any
 
   constructor(private apiService: ApiService) {}
 
@@ -25,16 +27,16 @@ export class DataComponent {
       seq2: values.seq2
     };
 
+    this.seq1 = [...values.seq1]
+    this.seq2 = [...values.seq2]
+
     this.sendData(data)
   }
 
   sendData(data: any): void {
     this.apiService.data(data).subscribe(
       response => {
-        //this.result = response.result
-        console.log(response)
-        var parsedResponse = this.readResponse(response.matrix, response.results)
-        this.passData(parsedResponse)
+        this.readResponse(response.matrix, response.results)
       },
       error => {
         console.error(error.error)
@@ -42,22 +44,23 @@ export class DataComponent {
     )
   }
 
-  readResponse(matrix: object, results: object): object {
+  readResponse(matrix: object, results: object): void {
     var parser = new Parser(matrix, results)
     var [valuesArray, directionsArray] = parser.parseMatrixResponse()
     var [scores, sequesnces] = parser.parseResultsResponse()
-
-    console.log(valuesArray)
-    console.log(directionsArray)
-    console.log(scores)
     console.log(sequesnces)
-
-    return [valuesArray, directionsArray, scores, sequesnces]
+    this.passData(valuesArray, directionsArray, scores, sequesnces)
+    // return [valuesArray, directionsArray, scores, sequesnces]
   }
 
-  passData(parsedResponse: object): void {
+  passData(valuesArray: object, directionsArray: object, scores: object, sequesnces: object): void {
     if(this.dataPasser) {
-      this.dataPasser.allData = parsedResponse
+      this.dataPasser.valuesArray = valuesArray
+      this.dataPasser.directionsArray = directionsArray
+      this.dataPasser.scores = scores
+      this.dataPasser.sequesnces = sequesnces
+      this.dataPasser.seq1 = this.seq1
+      this.dataPasser.seq2 = this.seq2
     }
   }
 }

@@ -1,2 +1,51 @@
+<div id="matrix" class="container">
+    <div class="d-flex">
+        <div class="d-flex">
+            <table class="table table-striped table-dark table-matrix">
+                <tbody>
+                    <tr *ngIf="seq2">
+                        <td id="matrix-table"><strong>#</strong></td>
+                        <td id="matrix-table"><strong>#</strong></td>
+                        <td id="matrix-table" *ngFor="let letter of seq2"><strong>{{letter}}</strong></td>
+                    </tr>
+                    <tr *ngFor="let row of valuesArray; let i = index">
+                        <td id="matrix-table" *ngIf="i == 0"><strong>#</strong></td>
+                        <td id="matrix-table" *ngIf="i != 0"><strong>{{seq1[i - 1]}}</strong></td>
+                        <td id="matrix-table" *ngFor="let cell of row">{{cell}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-<p>{{allData}}</p>
+        <div class="d-flex jstify-content-cenuter nu-table-body" style="padding: 100px;">
+            <table class="table table-striped table-dark table-sequence">
+                <tbody>
+                    <table *ngFor="let seq of sequesnces; let i = index">
+                        <tr>
+                            <td colspan="2">Score: {{scores[i]}}</td>
+                            <td>
+                            <tr>
+                                <td *ngFor="let s1 of seq[0]">
+                                    <tr class="sequence-cell">{{ s1 }}</tr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td *ngFor="let se1 of seq[0]; let se2 of seq[1]">
+                                    <tr class="sequence-cell" *ngIf="se1 == se2 && se1 != '-' && se2 != '-'">|</tr>
+                                    <tr class="sequence-cell" *ngIf="se1 != se2 && se1 != '-' && se2 != '-'">*</tr>
+                                    <tr class="sequence-cell" *ngIf="se1 == '-' || se2 == '-'">-</tr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td *ngFor="let s2 of seq[1]">
+                                    <tr class="sequence-cell">{{ s2 }}</tr>
+                                </td>
+                            </tr>
+                        </td>
+                        </tr>
+                    </table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

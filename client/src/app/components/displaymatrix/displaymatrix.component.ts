@@ -6,11 +6,15 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./displaymatrix.component.css']
 })
 export class DisplaymatrixComponent {
-  allData: object | any
+  valuesArray: object | any
+  directionsArray: object | any
+  scores: object | any
+  sequesnces: object | any
+  seq1: object | any
+  seq2: object | any
+
 
   constructor() {}
 
-  xd () {
-    console.log(this.allData)
-  }
+  
 }
