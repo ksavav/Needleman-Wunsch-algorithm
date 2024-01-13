@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { Parser } from "src/app/Accessories/parser"; 
 
 @Component({
   selector: 'app-data',
@@ -27,11 +28,20 @@ export class DataComponent {
     this.apiService.data(data).subscribe(
       response => {
         this.result = response.result
-        console.log(response)
+        this.readResponse(response.matrix)
       },
       error => {
         console.error(error.error)
       }
     )
+  }
+
+  readResponse(response: object): void {
+    var parser = new Parser(response)
+    var [valuesArray, directionsArray] = parser.parseMatrixResponse()
+    // var [scores, results] = parser.parseResultsResponse()
+
+    console.log(valuesArray)
+    console.log(directionsArray)
   }
 }
