@@ -1,18 +1,30 @@
 .form-row {
-    margin-bottom: 20px;
-  }
+    margin-bottom: 10px;
+}
 
 form { 
     background-color: #343a40; 
 }
 
-.form-group-wrapper {
-    display: flex;
-    margin-bottom:16px;
-  }
-  
-.form-group-wrapper .form-group{
-  flex-grow: 1;
-  flex-basis: 50%;
-  padding: 8px;
+#parent {
+  width: 60%;
+  overflow-x: auto;
+}
+
+#calc-btn {
+  padding: 5px;
+}
+
+.childr1 {
+  padding: 5px;
+  display: inline-block;
+  width: 30%;
+  height: 100%;
+}
+
+.childr2 {
+  padding: 5px;
+  display: inline-block;
+  width: 20%;
+  height: 100%;
 }
