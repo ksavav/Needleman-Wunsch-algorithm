@@ -1,34 +1,45 @@
 export class Parser {
-    jsonResponse: object | any
+    jsonResponseMatrix: object | any
+    jsonResponseResult: object | any
 
-    constructor(response: object) {
-        this.jsonResponse = response;
+    constructor(matrix: object, result: object) {
+        this.jsonResponseMatrix = matrix
+        this.jsonResponseResult = result
     }
     
     parseMatrixResponse() {
-        var valuesArray: number[][] = [];
-        var directionsArray: string[][] = [];
+        var valuesArray: number[][] = []
+        var directionsArray: string[][] = []
 
-        Object.keys(this.jsonResponse).forEach((rowName) => {
-            var row = this.jsonResponse[rowName]
+        Object.keys(this.jsonResponseMatrix).forEach((rowName) => {
+            var row = this.jsonResponseMatrix[rowName]
             var rowValues: number[] = []
             var rowDirections: string[] = []
 
             Object.keys(row).forEach((cellName) => {
-                var cell = row[cellName];
-                rowValues.push(cell.value);
-                rowDirections.push(cell.direction);
+                var cell = row[cellName]
+                rowValues.push(cell.value)
+                rowDirections.push(cell.direction)
             });
 
-            valuesArray.push(rowValues);
-            directionsArray.push(rowDirections);
+            valuesArray.push(rowValues)
+            directionsArray.push(rowDirections)
         })
 
-        return [valuesArray, directionsArray];
+        return [valuesArray, directionsArray]
     }
 
     parseResultsResponse() {
+        var scores: number[] = []
+        var sequencesArrays: string[][][] = [];
 
-        // parse result response
+        
+        Object.keys(this.jsonResponseResult).forEach((resultName) => {
+            var result = this.jsonResponseResult[resultName];
+            scores.push(result.score);
+            sequencesArrays.push([[...result.seq1], [...result.seq2]]);
+        });
+
+        return [scores, sequencesArrays]
     }
 }

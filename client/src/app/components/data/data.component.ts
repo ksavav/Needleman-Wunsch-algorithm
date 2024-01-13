@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Parser } from "src/app/Accessories/parser"; 
+import { DisplaymatrixComponent } from '../displaymatrix/displaymatrix.component';
 
 @Component({
   selector: 'app-data',
@@ -8,7 +9,10 @@ import { Parser } from "src/app/Accessories/parser";
   styleUrls: ['./data.component.css']
 })
 export class DataComponent {
+  @ViewChild(DisplaymatrixComponent) dataPasser: DisplaymatrixComponent | any
+  
   result: string | undefined
+  passAllData: object | undefined
 
   constructor(private apiService: ApiService) {}
 
@@ -27,8 +31,10 @@ export class DataComponent {
   sendData(data: any): void {
     this.apiService.data(data).subscribe(
       response => {
-        this.result = response.result
-        this.readResponse(response.matrix)
+        //this.result = response.result
+        console.log(response)
+        var parsedResponse = this.readResponse(response.matrix, response.results)
+        this.passData(parsedResponse)
       },
       error => {
         console.error(error.error)
@@ -36,12 +42,22 @@ export class DataComponent {
     )
   }
 
-  readResponse(response: object): void {
-    var parser = new Parser(response)
+  readResponse(matrix: object, results: object): object {
+    var parser = new Parser(matrix, results)
     var [valuesArray, directionsArray] = parser.parseMatrixResponse()
-    // var [scores, results] = parser.parseResultsResponse()
+    var [scores, sequesnces] = parser.parseResultsResponse()
 
     console.log(valuesArray)
     console.log(directionsArray)
+    console.log(scores)
+    console.log(sequesnces)
+
+    return [valuesArray, directionsArray, scores, sequesnces]
+  }
+
+  passData(parsedResponse: object): void {
+    if(this.dataPasser) {
+      this.dataPasser.allData = parsedResponse
+    }
   }
 }

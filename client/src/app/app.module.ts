@@ -9,13 +9,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavComponent } from './components/nav/nav.component';
 import { FormComponent } from './components/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DisplaymatrixComponent } from './components/displaymatrix/displaymatrix.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DataComponent,
     NavComponent,
-    FormComponent
+    FormComponent,
+    DisplaymatrixComponent
   ],
   imports: [
     BrowserModule,
