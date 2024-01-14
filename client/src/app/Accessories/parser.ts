@@ -32,14 +32,15 @@ export class Parser {
     parseResultsResponse() {
         var scores: number[] = []
         var sequencesArrays: string[][][] = [];
+        var path: number[] = []
 
         
         Object.keys(this.jsonResponseResult).forEach((resultName) => {
             var result = this.jsonResponseResult[resultName];
             scores.push(result.score);
             sequencesArrays.push([[...result.seq1], [...result.seq2]]);
+            path.push(result.path)
         });
-
-        return [scores, sequencesArrays]
+        return [path, scores, sequencesArrays]
     }
 }

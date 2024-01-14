@@ -2,6 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Parser } from "src/app/Accessories/parser"; 
 import { DisplaymatrixComponent } from '../displaymatrix/displaymatrix.component';
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-data',
@@ -15,6 +16,7 @@ export class DataComponent {
   passAllData: object | undefined
   seq1: object | any
   seq2: object | any
+  change = 0
 
   constructor(private apiService: ApiService) {}
 
@@ -47,16 +49,18 @@ export class DataComponent {
   readResponse(matrix: object, results: object): void {
     var parser = new Parser(matrix, results)
     var [valuesArray, directionsArray] = parser.parseMatrixResponse()
-    var [scores, sequesnces] = parser.parseResultsResponse()
+    var [path, scores, sequesnces] = parser.parseResultsResponse()
     console.log(sequesnces)
-    this.passData(valuesArray, directionsArray, scores, sequesnces)
+    this.passData(valuesArray, directionsArray, scores, sequesnces, path)
     // return [valuesArray, directionsArray, scores, sequesnces]
   }
 
-  passData(valuesArray: object, directionsArray: object, scores: object, sequesnces: object): void {
+  passData(valuesArray: object, directionsArray: object, scores: object, sequesnces: object, path: object): void {
+    this.change += 1
     if(this.dataPasser) {
       this.dataPasser.valuesArray = valuesArray
       this.dataPasser.directionsArray = directionsArray
+      this.dataPasser.path = path
       this.dataPasser.scores = scores
       this.dataPasser.sequesnces = sequesnces
       this.dataPasser.seq1 = this.seq1
