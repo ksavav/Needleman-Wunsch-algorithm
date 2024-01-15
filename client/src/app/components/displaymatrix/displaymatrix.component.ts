@@ -53,12 +53,9 @@ export class DisplaymatrixComponent {
         else if(cell == 'top+left') temp_row.push('assets/left_top.png')
         else if(cell == 'top_left+top+left') temp_row.push('assets/left_top_top_left.png')
         else temp_row.push('')
-
       })
       this.arrows.push(temp_row)
     })
-    console.log(this.directionsArray)
-    console.log(this.arrows)
   }
 
   colorSeq(): void {
