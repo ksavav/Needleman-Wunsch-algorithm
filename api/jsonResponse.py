@@ -19,10 +19,10 @@ class JsonResponse:
                     "value": cell[1]
                 }
                 if cell_counter == 9:
-                    cell_counter += 81
+                    cell_counter += 80
                 cell_counter += 1
             if row_counter == 9:
-                row_counter += 81
+                row_counter += 80
             row_counter += 1
         
         return ltd

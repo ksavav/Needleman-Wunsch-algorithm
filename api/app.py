@@ -37,7 +37,7 @@ def data():
     
     m = needle.init_matrix(row_length, column_length)
     matrix = needle.fill_matrix(m, row_length, column_length)
-
+    filled_matrix = copy.deepcopy(matrix)
     needle.find_path(matrix, row_length - 1, column_length - 1, needle.x)
     directions = copy.deepcopy(needle.x)
     final_results = []
@@ -49,7 +49,7 @@ def data():
 
     # best_pick = max(final_results, key=lambda x: x[0])
 
-    to_json = JsonResponse(matrix, final_results, directions)
+    to_json = JsonResponse(filled_matrix, final_results, directions)
     response = to_json.workflow()
     response = jsonify(response)
 
