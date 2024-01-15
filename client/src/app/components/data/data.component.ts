@@ -50,7 +50,6 @@ export class DataComponent {
     var parser = new Parser(matrix, results)
     var [valuesArray, directionsArray] = parser.parseMatrixResponse()
     var [path, scores, sequesnces] = parser.parseResultsResponse()
-    console.log(sequesnces)
     this.passData(valuesArray, directionsArray, scores, sequesnces, path)
     // return [valuesArray, directionsArray, scores, sequesnces]
   }

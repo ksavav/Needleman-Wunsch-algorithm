@@ -16,11 +16,11 @@ export class FormComponent {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      seq1: ['AAsdfTCsdfG', Validators.required],
-      seq2: ['sdfAAsfCG', Validators.required],
-      match: [2, Validators.required],
-      mismatch: [-2, Validators.required],
-      gap: [-1, Validators.required],
+      seq1: ['', Validators.required],
+      seq2: ['', Validators.required],
+      match: [null, Validators.required],
+      mismatch: [null, Validators.required],
+      gap: [null, Validators.required],
     });
   }
 
