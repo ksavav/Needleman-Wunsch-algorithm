@@ -11,7 +11,9 @@
                     <tr *ngFor="let row of valuesArray; let i = index">
                         <td class="matrix-cell" *ngIf="i == 0" [ngStyle]="{'border-right': '2px solid blue'}"><strong>#</strong></td>
                         <td class="matrix-cell" *ngIf="i != 0" [ngStyle]="{'border-right': '2px solid blue'}"><strong>{{seq1[i - 1] | uppercase}}</strong></td>
-                        <td class="matrix-cell" [ngStyle]="{'background': bgColor[i][j]}" *ngFor="let cell of row; let j = index" id="cell-{{i}}-{{j}}">{{cell}}</td>
+                        <td class="matrix-cell" [ngStyle]="{'background': bgColor[i][j]}" *ngFor="let cell of row; let j = index" id="cell-{{i}}-{{j}}">{{cell}} 
+                            <div class="parent"><img class="image-arrow" id="arrow-{{i}}-{{j}}" [src]="arrows[i][j]"></div>
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -11,14 +11,18 @@ class JsonResponse:
         row_counter = 0
         for row in self.matrix:
             cell_counter = 0
-            ltd[f'row{row_counter}'] = {}
+            ltd[f'row-{row_counter}'] = {}
 
             for cell in row:
-                ltd[f'row{row_counter}'][f'cell{cell_counter}'] = {
+                ltd[f'row-{row_counter}'][f'cell{cell_counter}'] = {
                     "direction": cell[0],
                     "value": cell[1]
                 }
+                if cell_counter == 9:
+                    cell_counter += 81
                 cell_counter += 1
+            if row_counter == 9:
+                row_counter += 81
             row_counter += 1
         
         return ltd

@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, Response
 from flask_cors import CORS, cross_origin
 from algorithm import Algorithm
 from jsonResponse import JsonResponse
+import copy
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -38,6 +39,7 @@ def data():
     matrix = needle.fill_matrix(m, row_length, column_length)
 
     needle.find_path(matrix, row_length - 1, column_length - 1, needle.x)
+    directions = copy.deepcopy(needle.x)
     final_results = []
 
     for i in range(len(needle.x)):
@@ -47,7 +49,7 @@ def data():
 
     # best_pick = max(final_results, key=lambda x: x[0])
 
-    to_json = JsonResponse(matrix, final_results, needle.x)
+    to_json = JsonResponse(matrix, final_results, directions)
     response = to_json.workflow()
     response = jsonify(response)
 

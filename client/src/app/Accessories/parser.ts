@@ -10,8 +10,9 @@ export class Parser {
     parseMatrixResponse() {
         var valuesArray: number[][] = []
         var directionsArray: string[][] = []
-
+        console.log(this.jsonResponseMatrix)
         Object.keys(this.jsonResponseMatrix).forEach((rowName) => {
+            
             var row = this.jsonResponseMatrix[rowName]
             var rowValues: number[] = []
             var rowDirections: string[] = []
@@ -20,6 +21,7 @@ export class Parser {
                 var cell = row[cellName]
                 rowValues.push(cell.value)
                 rowDirections.push(cell.direction)
+                console.log(row[cellName])
             });
 
             valuesArray.push(rowValues)

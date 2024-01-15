@@ -44,3 +44,15 @@
     border: 2px red;
     border-color: red;
 }
+
+.parent {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+  
+.image-arrow {
+    position: absolute;
+    top: -32px;
+    left: -8px;
+  }

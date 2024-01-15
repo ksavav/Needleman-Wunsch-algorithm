@@ -159,30 +159,26 @@ class Algorithm:
         return score
 
 
-# if __name__ == '__main__':
-#     needle = Algorithm(2, -2, -1, 'AATCGXX', 'AACGAA')
-
-#     row_length = len(needle.seq1) + 1
-#     column_length = len(needle.seq2) + 1
-    
-#     m = needle.init_matrix(row_length, column_length)
-#     result = needle.fill_matrix(m, row_length, column_length)
-
-#     print('Filled matrix: ')
-#     for i in result:
-#         print(i)
-
-#     needle.find_path(result, row_length - 1, column_length - 1, needle.x)
-#     final_results = []
-#     for i in range(len(needle.x)):
-#         print(f'\noption {i}:')
-#         seq1_final, seq2_final = needle.find_seq(needle.x[i])
-#         score = needle.calculate_score(seq1_final, seq2_final)
-#         final_results.append([score, [seq1_final, seq2_final]])
-#         print(seq1_final, seq2_final)
-#         print(f'Score = {score}')
-
-#     best_pick = max(final_results, key=lambda x: x[0])
-#     print('One of the best paths: \n')
-#     print(f'{best_pick[1][0]}\n{best_pick[1][1]}\nScore = {best_pick[0]}')
-#     print(final_results)
+if __name__ == '__main__':
+    needle = Algorithm(2, -2, -1, 'AAsdfTCsdfG', 'sdfAAsfCG')
+    row_length = len(needle.seq1) + 1
+    column_length = len(needle.seq2) + 1
+  
+    m = needle.init_matrix(row_length, column_length)
+    result = needle.fill_matrix(m, row_length, column_length)
+    print('Filled matrix: ')
+    for i in result:
+        print(i)
+    needle.find_path(result, row_length - 1, column_length - 1, needle.x)
+    final_results = []
+    for i in range(len(needle.x)):
+        print(f'\noption {i}:')
+        seq1_final, seq2_final = needle.find_seq(needle.x[i])
+        score = needle.calculate_score(seq1_final, seq2_final)
+        final_results.append([score, [seq1_final, seq2_final]])
+        print(seq1_final, seq2_final)
+        print(f'Score = {score}')
+    best_pick = max(final_results, key=lambda x: x[0])
+    print('One of the best paths: \n')
+    print(f'{best_pick[1][0]}\n{best_pick[1][1]}\nScore = {best_pick[0]}')
+    print(final_results)
