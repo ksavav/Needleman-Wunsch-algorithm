@@ -25,6 +25,8 @@ export class FormComponent {
   }
 
   onSubmit() {  
-    this.sendDataToDataComponent.emit(this.form?.value)
+    if (this.form?.valid) {
+      this.sendDataToDataComponent.emit(this.form?.value)
+    }
   }
 }
