@@ -1,23 +1,28 @@
 from flask import jsonify
 
 class JsonResponse:
-    def __init__(self, matrix, results):
+    def __init__(self, matrix, results, path):
         self.matrix = matrix
         self.results = results
+        self.path = path
 
     def parse_matrix_to_json(self):
         ltd = {}
         row_counter = 0
         for row in self.matrix:
             cell_counter = 0
-            ltd[f'row{row_counter}'] = {}
+            ltd[f'row-{row_counter}'] = {}
 
             for cell in row:
-                ltd[f'row{row_counter}'][f'cell{cell_counter}'] = {
+                ltd[f'row-{row_counter}'][f'cell{cell_counter}'] = {
                     "direction": cell[0],
                     "value": cell[1]
                 }
+                if cell_counter == 9:
+                    cell_counter += 80
                 cell_counter += 1
+            if row_counter == 9:
+                row_counter += 80
             row_counter += 1
         
         return ltd
@@ -30,7 +35,8 @@ class JsonResponse:
             ltd[f'result{row_counter}'] = {
                 'score': row[0],
                 'seq1': row[1][0],
-                'seq2': row[1][1]
+                'seq2': row[1][1],
+                'path': self.path[row_counter]
             }
             row_counter += 1
 

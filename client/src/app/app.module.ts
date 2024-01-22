@@ -10,6 +10,8 @@ import { NavComponent } from './components/nav/nav.component';
 import { FormComponent } from './components/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DisplaymatrixComponent } from './components/displaymatrix/displaymatrix.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { DisplaymatrixComponent } from './components/displaymatrix/displaymatrix
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NoopAnimationsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

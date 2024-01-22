@@ -16,15 +16,17 @@ export class FormComponent {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      seq1: ['AATCG', Validators.required],
-      seq2: ['AACG', Validators.required],
-      match: [2, Validators.required],
-      mismatch: [-2, Validators.required],
-      gap: [-1, Validators.required],
+      seq1: ['', Validators.required],
+      seq2: ['', Validators.required],
+      match: [null, Validators.required],
+      mismatch: [null, Validators.required],
+      gap: [null, Validators.required],
     });
   }
 
   onSubmit() {  
-    this.sendDataToDataComponent.emit(this.form?.value)
+    if (this.form?.valid) {
+      this.sendDataToDataComponent.emit(this.form?.value)
+    }
   }
 }

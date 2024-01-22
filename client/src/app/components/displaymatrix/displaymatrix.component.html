@@ -1,2 +1,53 @@
+<div id="matrix" class="container">
+    <div class="d-flex">
+        <div class="d-flex">
+            <table class="table table-dark table-matrix">
+                <tbody>
+                    <tr *ngIf="seq2">
+                        <td class="matrix-cell"><strong>#</strong></td>
+                        <td class="matrix-cell" [ngStyle]="{'border-bottom': '2px solid blue'}"><strong>#</strong></td>
+                        <td class="matrix-cell" [ngStyle]="{'border-bottom': '2px solid blue'}" *ngFor="let letter of seq2"><strong>{{letter | uppercase}}</strong></td>
+                    </tr>
+                    <tr *ngFor="let row of valuesArray; let i = index">
+                        <td class="matrix-cell" *ngIf="i == 0" [ngStyle]="{'border-right': '2px solid blue'}"><strong>#</strong></td>
+                        <td class="matrix-cell" *ngIf="i != 0" [ngStyle]="{'border-right': '2px solid blue'}"><strong>{{seq1[i - 1] | uppercase}}</strong></td>
+                        <td class="matrix-cell" [ngStyle]="{'background': bgColor[i][j]}" *ngFor="let cell of row; let j = index" id="cell-{{i}}-{{j}}">{{cell}} 
+                            <div class="parent"><img class="image-arrow" id="arrow-{{i}}-{{j}}" [src]="arrows[i][j]"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-<p>{{allData}}</p>
+        <div class="d-flex nu-table-body" style="padding: 100px;">
+            <table class="table-sequence">
+                <tbody>
+                    <table *ngFor="let seq of sequesnces; let i = index">
+                        <tr [ngStyle]="{'background': seqColor[i], 'border-bottom': seq_count - i - 1 > 0 ? '2px solid blue' : '0px'}" (click)="showPath(i)">
+                            <td class="score-cell" colspan="2">Score: {{scores[i]}}</td>
+                            <td>
+                                <tr>
+                                    <td *ngFor="let s1 of seq[0]">
+                                        <tr class="sequence-cell">{{ s1 }}</tr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let se1 of seq[0]; let j = index">
+                                        <tr class="sequence-cell" *ngIf="seq[0][j] == seq[1][j] && seq[0][j] != '-' && seq[1][j] != '-'">|</tr>
+                                        <tr class="sequence-cell" *ngIf="seq[0][j] != '-' && seq[1][j] != '-' && seq[0][j] != seq[1][j]">*</tr>
+                                        <tr class="sequence-cell" *ngIf="seq[0][j] == '-' || seq[1][j] == '-'">-</tr>
+                                    </td>
+                                </tr>
+                                <tr class="bottom-border">
+                                    <td *ngFor="let s2 of seq[1]">
+                                        <tr class="sequence-cell">{{ s2 }}</tr>
+                                    </td>
+                                </tr>
+                            </td>
+                        </tr>
+                    </table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Parser } from "src/app/Accessories/parser"; 
 import { DisplaymatrixComponent } from '../displaymatrix/displaymatrix.component';
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-data',
@@ -13,6 +14,9 @@ export class DataComponent {
   
   result: string | undefined
   passAllData: object | undefined
+  seq1: object | any
+  seq2: object | any
+  change = 0
 
   constructor(private apiService: ApiService) {}
 
@@ -25,16 +29,16 @@ export class DataComponent {
       seq2: values.seq2
     };
 
+    this.seq1 = [...values.seq1]
+    this.seq2 = [...values.seq2]
+
     this.sendData(data)
   }
 
   sendData(data: any): void {
     this.apiService.data(data).subscribe(
       response => {
-        //this.result = response.result
-        console.log(response)
-        var parsedResponse = this.readResponse(response.matrix, response.results)
-        this.passData(parsedResponse)
+        this.readResponse(response.matrix, response.results)
       },
       error => {
         console.error(error.error)
@@ -42,22 +46,24 @@ export class DataComponent {
     )
   }
 
-  readResponse(matrix: object, results: object): object {
+  readResponse(matrix: object, results: object): void {
     var parser = new Parser(matrix, results)
     var [valuesArray, directionsArray] = parser.parseMatrixResponse()
-    var [scores, sequesnces] = parser.parseResultsResponse()
-
-    console.log(valuesArray)
-    console.log(directionsArray)
-    console.log(scores)
-    console.log(sequesnces)
-
-    return [valuesArray, directionsArray, scores, sequesnces]
+    var [path, scores, sequesnces] = parser.parseResultsResponse()
+    this.passData(valuesArray, directionsArray, scores, sequesnces, path)
+    // return [valuesArray, directionsArray, scores, sequesnces]
   }
 
-  passData(parsedResponse: object): void {
+  passData(valuesArray: object, directionsArray: object, scores: object, sequesnces: object, path: object): void {
+    this.change += 1
     if(this.dataPasser) {
-      this.dataPasser.allData = parsedResponse
+      this.dataPasser.valuesArray = valuesArray
+      this.dataPasser.directionsArray = directionsArray
+      this.dataPasser.path = path
+      this.dataPasser.scores = scores
+      this.dataPasser.sequesnces = sequesnces
+      this.dataPasser.seq1 = this.seq1
+      this.dataPasser.seq2 = this.seq2
     }
   }
 }
