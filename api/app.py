@@ -7,7 +7,7 @@ import copy
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-cors = CORS(app, resources={r"/data": {"origins": "http://localhost:5000"}})
+cors = CORS(app, resources={r"/data": {"origins": "*"}})
 
 CORS(app)
 
@@ -56,4 +56,4 @@ def data():
     return response
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)#, host="0.0.0.0", port=int("8080"))

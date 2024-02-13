@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private url = 'http://localhost:5000'
+  private url = 'https://ksavav.pythonanywhere.com'
 
   constructor(private http: HttpClient) { }
 
